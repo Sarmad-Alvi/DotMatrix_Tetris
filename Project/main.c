@@ -20,9 +20,9 @@ int main(void)
 	
 	while (1)
 	{
-		refreshMatrixSS(9, 8, 10, 11,mBuff);
+		refreshMatrix(9, 8, 10, 11,mBuff);
 		delay(200);
-		//refreshMatrixSS(9, 8, 10, 11, mBuffB);
+
 		
 	}
 
