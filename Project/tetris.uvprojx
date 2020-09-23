@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>practice</OutputName>
+          <OutputName>tetris</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -413,11 +413,6 @@
               <FilePath>.\blocks.c</FilePath>
             </File>
             <File>
-              <FileName>blocks.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\blocks.h</FilePath>
-            </File>
-            <File>
               <FileName>multiplex.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\multiplex.h</FilePath>
@@ -433,14 +428,19 @@
               <FilePath>.\event_handler.h</FilePath>
             </File>
             <File>
-              <FileName>SPI.c</FileName>
+              <FileName>shapes.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\SPI.c</FilePath>
+              <FilePath>.\shapes.c</FilePath>
             </File>
             <File>
-              <FileName>SPI.h</FileName>
+              <FileName>blocks.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\SPI.h</FilePath>
+              <FilePath>.\blocks.h</FilePath>
+            </File>
+            <File>
+              <FileName>shapes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\shapes.h</FilePath>
             </File>
           </Files>
         </Group>

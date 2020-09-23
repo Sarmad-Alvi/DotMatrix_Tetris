@@ -1,8 +1,8 @@
 #include "stm32f10x.h"
 
 
-void refreshMatrix(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, uint8_t OE_n, int m[][8]);
+void refreshMatrix(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, uint8_t OE_n, uint8_t m[][8]);
 
-extern int mBuff[][8];
-extern int mBuffB[][8];
+extern uint8_t mBuffFore_G[8][8];
+extern uint8_t mBuffBack_G[8][8];
 

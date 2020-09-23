@@ -4,26 +4,27 @@
 #include "multiplex.h"
 #include "blocks.h"
 #include "event_handler.h"
+#include "shapes.h"
+#include <time.h>
 
-void refreshMatrixTimer(uint32_t delay);
-void refreshMatrixS(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin);
-void setRowPinsS(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, int c, int m[][8]);
-void refreshMatrixSS(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, uint8_t OE, int m[][8]);
-void init(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin);
-
+int curr = 1;
+int newPos = 1;
+int start[] = {0, 0};
+	
 int main(void)
 {
 	clockInit();
 	pin_init();
-	init(2, 3, 4);
+	EXTI_init();
+	setPinsHigh(1);
+	setPinsHigh(2);
+	
 
 	
 	while (1)
 	{
-		refreshMatrix(9, 8, 10, 11,mBuff);
-		delay(200);
-
-		
+		refreshMatrix(9, 8, 10, 11, mBuffFore_G);
+		delay(20);
 	}
 
 }
@@ -32,11 +33,37 @@ void EXTI15_10_IRQHandler(void)
 {
 	if (EXTI->PR & EXTI_PR_PR12)
 	{
-		delay(5000);
+		
 		EXTI->PR |= EXTI_PR_PR12;
-		delay(5000);
-		left(mBuff);
-		delay(5000);
+		rotate(mBuffFore_G, curr, start, newPos);
+		newPos = 0;
+		if (curr == 4)
+		{
+			curr = 1;
+		}
+		else
+		{
+			curr++;
+		}
 	}
 }
 
+
+ void EXTI0_IRQHandler(void)
+{
+	if (EXTI->PR & EXTI_PR_PR0)
+	{
+		
+		EXTI->PR |= EXTI_PR_PR0;
+		left(mBuffFore_G);
+		newPos = 1;
+	}
+}
+void EXTI4_IRQHandler(void)
+{
+	if (EXTI->PR & EXTI_PR_PR4)
+	{
+		EXTI->PR |= EXTI_PR_PR4;
+		down(mBuffFore_G);
+	}
+}
