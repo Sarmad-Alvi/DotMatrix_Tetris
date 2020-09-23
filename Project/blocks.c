@@ -31,7 +31,7 @@ void clear(uint8_t x[][8])
 			}	
 }
 
-void left(uint8_t x [][8])
+void left(uint8_t x [][8], int new)
 {
 	_Bool check = 1;
 	for (int i = 0; i < 8; i++)
@@ -51,10 +51,11 @@ void left(uint8_t x [][8])
 						x[i][j-1] = 1;
 					}
 				}
+		new = 1;
 	}
 }
 
-void right(uint8_t x [][8])
+void right(uint8_t x [][8], int new)
 {
 	_Bool check = 1;
 	for (int i = 0; i < 8; i++)
@@ -74,6 +75,7 @@ void right(uint8_t x [][8])
 						x[i][j+1] = 1;
 					}
 				}
+		new = 1;
 	}
 }
 
@@ -118,6 +120,7 @@ void rotate(uint8_t x [][8], int curr, int start[2], int newPos)
 				}
 	}
 
+	int pWidth, pHeight;
 	break1:;
 	_Bool check = 1;
 		

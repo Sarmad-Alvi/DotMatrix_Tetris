@@ -55,8 +55,7 @@ void EXTI15_10_IRQHandler(void)
 	{
 		
 		EXTI->PR |= EXTI_PR_PR0;
-		left(mBuffFore_G);
-		newPos = 1;
+		right(mBuffFore_G, newPos);
 	}
 }
 void EXTI4_IRQHandler(void)
