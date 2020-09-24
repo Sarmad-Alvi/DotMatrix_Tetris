@@ -6,11 +6,13 @@
 #include "event_handler.h"
 #include "shapes.h"
 #include <time.h>
+#include <stdlib.h>
+
 
 uint8_t curr = 1; //tracks the current rotation of a shape
 uint8_t newPos = 1; //1 if shape is in new position, 0 otherwise (used to set rotation axis)
 uint8_t start[] = {0, 0}; //coordinates on foreground array of starting coordinates of shape
-uint8_t currShape; //keeps track of current shape, see shapes.c
+uint8_t currShape = 1; //keeps track of current shape, see shapes.c
 uint8_t defaultStart[] = {0, 3}; //starting coordinates of new shape
 
 int main(void)
@@ -20,9 +22,10 @@ int main(void)
 	EXTI_init();
 	setPinsHigh(1);
 	setPinsHigh(2);
-	
-
-	
+	srand(5329934);
+	currShape = 6;
+	delay(500);
+	insertS(currShape, defaultStart, mBuffFore_G);
 	while (1)
 	{
 		refreshMatrix(9, 8, 10, 11, mBuffFore_G);
@@ -57,7 +60,7 @@ void EXTI15_10_IRQHandler(void)
 	{
 		
 		EXTI->PR |= EXTI_PR_PR0;
-		right(mBuffFore_G, newPos);
+		down(mBuffFore_G);
 		newPos = 1;
 	}
 }

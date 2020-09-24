@@ -174,6 +174,13 @@ void rotate(uint8_t x [][8], uint8_t curr, uint8_t start[2], uint8_t newPos, uin
 		else if (curr == 3)
 		{
 			copy1(SH[currShape].s4, s);
+			for (int i = 0; i < 8; i++)
+				{
+					if (x[7][i] == 1)
+					{
+						start[0]--;
+					}
+				}
 		}
 		else if (curr == 4)
 		{
@@ -194,3 +201,17 @@ void rotate(uint8_t x [][8], uint8_t curr, uint8_t start[2], uint8_t newPos, uin
 				}
 	}
 }
+
+void insertS(uint8_t currShape, uint8_t defaultStart[2], uint8_t mBuffFore_G [][8])
+{
+	for (int i = defaultStart[0], k = 0; i < (defaultStart[0]+3); i++, k++)
+		for (int j = defaultStart[1], l = 0; j < (defaultStart[1]+3); j++, l++)
+			{
+				mBuffFore_G[i][j] = SH[currShape].s1[k][l];
+			}
+	
+	
+}
+
+
+
