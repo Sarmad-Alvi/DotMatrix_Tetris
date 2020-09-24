@@ -8,5 +8,5 @@ struct shape
 	uint8_t s4 [3][3];
 };
 
-extern struct shape T_shape;
+extern struct shape SH[7];
 

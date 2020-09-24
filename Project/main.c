@@ -7,10 +7,12 @@
 #include "shapes.h"
 #include <time.h>
 
-int curr = 1;
-int newPos = 1;
-int start[] = {0, 0};
-	
+uint8_t curr = 1; //tracks the current rotation of a shape
+uint8_t newPos = 1; //1 if shape is in new position, 0 otherwise (used to set rotation axis)
+uint8_t start[] = {0, 0}; //coordinates on foreground array of starting coordinates of shape
+uint8_t currShape; //keeps track of current shape, see shapes.c
+uint8_t defaultStart[] = {0, 3}; //starting coordinates of new shape
+
 int main(void)
 {
 	clockInit();
@@ -35,7 +37,7 @@ void EXTI15_10_IRQHandler(void)
 	{
 		
 		EXTI->PR |= EXTI_PR_PR12;
-		rotate(mBuffFore_G, curr, start, newPos);
+		rotate(mBuffFore_G, curr, start, newPos, currShape);
 		newPos = 0;
 		if (curr == 4)
 		{
@@ -56,6 +58,7 @@ void EXTI15_10_IRQHandler(void)
 		
 		EXTI->PR |= EXTI_PR_PR0;
 		right(mBuffFore_G, newPos);
+		newPos = 1;
 	}
 }
 void EXTI4_IRQHandler(void)

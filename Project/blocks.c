@@ -79,6 +79,29 @@ void right(uint8_t x [][8], int new)
 	}
 }
 
+void up(uint8_t x [][8])
+{
+	_Bool check = 1;
+	for (int i = 0; i < 8; i++)
+		if (x[1][i] == 1)
+			check = 0;
+		
+	if (check == 1)
+	{
+		uint8_t z [8][8];
+		copy(x, z);
+		clear(x);
+		for (int i = 0; i < 8; i++)
+			for (int j = 0; j < 8; j++)
+				{
+					if (z[i][j] == 1)
+					{	
+						x[i-1][j] = 1;
+					}
+				}
+	}
+	
+}
 
 void down(uint8_t x [][8])
 {
@@ -104,7 +127,7 @@ void down(uint8_t x [][8])
 	
 }
 
-void rotate(uint8_t x [][8], int curr, int start[2], int newPos)
+void rotate(uint8_t x [][8], uint8_t curr, uint8_t start[2], uint8_t newPos, uint8_t currShape)
 {
 	if (curr == 1 || newPos == 1 )
 	{
@@ -119,33 +142,50 @@ void rotate(uint8_t x [][8], int curr, int start[2], int newPos)
 					}
 				}
 	}
-
-	int pWidth, pHeight;
 	break1:;
-	_Bool check = 1;
-		
-	if (check == 1)
+	int pWidth, pHeight;
+	
+	if (1)
 	{
-		uint8_t z [8][8];
 		uint8_t s [3][3];
 		
 		if (curr == 1)
 		{
-			copy1(T_shape.s2, s);
+			copy1(SH[currShape].s2, s);
+			for (int i = 0; i < 8; i++)
+				{
+					if (x[7][i] == 1)
+					{
+						start[0]--;
+					}
+				}
 		}
 		else if (curr == 2)
 		{
-			copy1(T_shape.s3, s);
+			copy1(SH[currShape].s3, s);
+			for (int i = 0; i < 8; i++)
+				{
+					if (x[i][7] == 1)
+					{
+						start[1]--;
+					}
+				}
 		}
 		else if (curr == 3)
 		{
-			copy1(T_shape.s4, s);
+			copy1(SH[currShape].s4, s);
 		}
 		else if (curr == 4)
 		{
-			copy1(T_shape.s1, s);
+			copy1(SH[currShape].s1, s);
+			for (int i = 0; i < 8; i++)
+				{
+					if (x[i][7] == 1)
+					{
+						start[1]--;
+					}
+				}
 		}
-		copy(x, z);
 		clear(x);
 		for (int i = start[0], k = 0; i < (start[0]+3); i++, k++)
 			for (int j = start[1], l = 0; j < (start[1]+3); j++, l++)
