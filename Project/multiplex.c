@@ -3,8 +3,16 @@
 #include "led_init.h"
 
 
-uint8_t mBuffFore_G[8][8] = {
+uint8_t mBuffFore_G[16][8] = {
 	
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
 	{0, 0, 0, 0, 0, 0, 0, 0},
 	{0, 0, 0, 0, 0, 0, 0, 0},
 	{0, 0, 0, 0, 0, 0, 0, 0},
@@ -15,8 +23,16 @@ uint8_t mBuffFore_G[8][8] = {
 	{0, 0, 0, 0, 0, 0, 0, 0}
 };
 
-uint8_t mBuffBack_G[8][8] = {
+uint8_t mBuffBack_G[16][8] = {
 	
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0},
 	{0, 0, 0, 0, 0, 0, 0, 0},
 	{0, 0, 0, 0, 0, 0, 0, 0},
 	{0, 0, 0, 0, 0, 0, 0, 0},
@@ -30,7 +46,7 @@ uint8_t mBuffBack_G[8][8] = {
 void init(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin)
 {
 	setPinsLow(latchPin);
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 24; i++)
 		setPinsLow(dataPin);
 	
 	delay(200);
@@ -41,9 +57,9 @@ void init(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin)
 	setPinsHigh(latchPin);
 }
 
-void setRowPinsS(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, int c, uint8_t m[][8])
+void setColumnPinsS(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, int r, uint8_t m[][8])
 {
-	for (int r = 7; r >=0; r--)
+	for (int c = 0; c < 8 ; c++)
 	{
 		if (m[r][c] == 1)
 		{
@@ -53,9 +69,9 @@ void setRowPinsS(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, int c, uin
 		{
 			setPinsLow(dataPin);
 		}
-		delay(200);
+		delay(20);
 		setPinsHigh(clockPin);
-		delay(200);
+		delay(20);
 		setPinsLow(clockPin);
 	}
 	return;
@@ -63,26 +79,21 @@ void setRowPinsS(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, int c, uin
 
 void refreshMatrix(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, uint8_t OE_n, uint8_t m[][8])
 {
-	for (int c = 0; c < 8; c++)
+	for (int r = 0; r < 16; r++)
 	{
 		setPinsHigh(OE_n);
-		setPinsLow(latchPin);
-		setRowPinsS(dataPin, clockPin, latchPin, c, m);
-		
-		int x = 0xFF;
-		x = (x & ~(1 << (c)));
-		if (c == 0)
-		{
-			setPinsLow(12);
-		}
-		else
-		{
-			setPinsHigh(12);
-		}
 		delay(20);
-		for (int i = 0; i < 8; i++)
+		setPinsLow(latchPin);
+		setColumnPinsS(dataPin, clockPin, latchPin, r, m);
+		
+		int x = 0xFFFF;
+		x = (x & ~(1 << (r)));
+		
+
+		delay(20);
+		for (int i = 0; i < 16; i++)
 		{
-			if ((x & (1 << (7 - i))))
+			if ((x & (1 << (15 - i))))
 			{
 				setPinsHigh(dataPin);
 			}
@@ -92,7 +103,7 @@ void refreshMatrix(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, uint8_t 
 			}
 			
 			setPinsHigh(clockPin); 
-
+			delay(20);
 			setPinsLow(clockPin); 
 		}
                                                                                                                                                                                                                                                                                                                                                                                              		
@@ -101,7 +112,8 @@ void refreshMatrix(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, uint8_t 
 		setPinsHigh(latchPin);
 		delay(20);
 		setPinsLow(OE_n);
-		delay(2000);
+		delay(1000);
 	}
 }
+
 

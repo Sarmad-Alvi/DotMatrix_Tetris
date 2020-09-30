@@ -442,6 +442,16 @@
               <FileType>5</FileType>
               <FilePath>.\shapes.h</FilePath>
             </File>
+            <File>
+              <FileName>intro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\intro.c</FilePath>
+            </File>
+            <File>
+              <FileName>intro.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\intro.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
